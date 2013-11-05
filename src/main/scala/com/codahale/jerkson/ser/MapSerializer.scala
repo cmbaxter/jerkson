@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.{SerializerProvider, JsonSerializer}
 class MapSerializer extends JsonSerializer[collection.Map[_ ,_]] {
   def serialize(map: collection.Map[_,_], json: JsonGenerator, provider: SerializerProvider) {
     json.writeStartObject()
-    for ((key, value) <- map) {
-      provider.defaultSerializeField(key.toString, value, json)
+    map.foreach{ tup:(Any,Any) =>
+      provider.defaultSerializeField(tup._1.toString, tup._2, json)
     }
     json.writeEndObject()
   }
